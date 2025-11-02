@@ -5,17 +5,25 @@ from circleshape import *
 
 
 def main():
-    pygame.init() # initialize pygame 
-    # set up the display 
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) #create a display surface
-    clock = pygame.time.Clock()
-    caption = pygame.display.set_caption("All hail the Divine Beanbag!")
-    dt = 0
-    x_pos = SCREEN_WIDTH / 2
-    y_pos = SCREEN_HEIGHT / 2
-    player_pos = Player(x_pos, y_pos)
+    pygame.init() # initialize pygame  
+    pygame.display.set_caption(WINDOW_BANNER)#Text at tope of window 
     
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) #create a display surface
+    clock = pygame.time.Clock() #setting framerate
+    dt = 0
+   
+    updatable_group = pygame.sprite.Group() # stuff I use the update method on
+    drawable_group = pygame.sprite.Group() # stuff I use the draw method on 
+    Player.containers = (updatable_group, drawable_group) #make each group a container for  all Player instances 
+    Player(x_pos, y_pos)
 
+  #the player object 
+    
+    # group.update() calls the method for every member of the group 
+    #   e.g. group_a.update(dt)
+    # calling a method "on something" add it to the beginning with a period.
+    # "using something as an argument" put it inside the parenthesis 
+    
  #Game loop
     while True:
         dt = clock.tick(60)/100
@@ -28,28 +36,13 @@ def main():
 
         #do logical updates here 
         screen.fill(BLACK) #fill the screen with black color
+        updatable_group.update(dt)
 
         #render graphics here 
-        player_pos.draw(screen)
+        for drawable in drawable_group:
+            drawable.draw(screen)
+
         pygame.display.flip() #Call last! Use display.flip to update the display
-
-
-       
-    
-    
-    
-    # Game loop
-    # Check for player inputs
-    # Update game
-    # Draw game to screen
-
-    
-
-    
-    print("Starting Asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
-
 
         
 if __name__ == "__main__":
