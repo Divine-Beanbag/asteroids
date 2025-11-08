@@ -1,24 +1,21 @@
 import pygame
-from constants import *
-from player import *
+
 
 # Base class for game objects
-
 class CircleShape(pygame.sprite.Sprite):
     def __init__(self, x, y, radius):
         if hasattr(self, "containers"):
-            super().__init__(self.containers) #if container attribute exists it calls the constructor with containers 
+            super().__init__(self.containers)
         else:
-            super().__init__() #otherwise initialize the sprite with default behavior 
-
+            super().__init__()
         self.position = pygame.Vector2(x, y)
         self.velocity = pygame.Vector2(0, 0)
-        self.radius = radius 
+        self.radius = radius
 
-    def draw(self, screen):# screen variable may have changed 
-        # sub-classes must override 
+    def draw(self, screen):
+        # must override
         pass
 
     def update(self, dt):
-        # sub-casses must override 
-        pass 
+        # must override
+        pass
